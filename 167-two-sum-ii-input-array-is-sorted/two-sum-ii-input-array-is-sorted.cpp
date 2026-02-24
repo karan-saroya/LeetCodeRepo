@@ -1,25 +1,29 @@
 class Solution {
 public:
-    vector<int> twoSum(vector<int>& numbers, int target) {
-        unordered_map<int, int> has_seen_complement;
-        size_t  index=1;
-        vector<int> answer;
-        for(auto i: numbers)
+    vector<int> twoSum(vector<int>& numbers, int target)
+    {
+        int start=0, end=numbers.size()-1;
+        vector<int> answer={};
+        while(start < end)
         {
-            auto iter = has_seen_complement.find(i);
-            if(iter != has_seen_complement.end())
+            if(numbers[start] + numbers[end] == target)
             {
-                answer.push_back(iter->second);
-                answer.push_back(index);
+                answer.push_back(start+1);
+                answer.push_back(end+1);
                 break;
+            }
+            else if (numbers[start] + numbers[end] > target)
+            {
+                end--;
+                continue;
             }
             else
             {
-                // add the complement along with position
-                has_seen_complement.insert({target-i,index});
-                index++;
+                start++;
+                continue;
             }
         }
         return answer;
     }
+    
 };
