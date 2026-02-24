@@ -17,9 +17,9 @@ public:
     }
     
     void pop() {
-        int val = *(stack_normal.rbegin());
+        int val = stack_normal.back();
         stack_normal.pop_back();
-        if( val == *min_stack.rbegin())
+        if( val == min_stack.back())
         {
             min_stack.pop_back();
         }
@@ -27,7 +27,7 @@ public:
     }
     
     int top() {
-        return *(stack_normal.rbegin());
+        return stack_normal.back();
     }
     
     int getMin() {
