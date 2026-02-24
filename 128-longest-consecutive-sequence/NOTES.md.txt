@@ -2,7 +2,7 @@
 
 ## What I missed
 
-I had the insight that not every index can be a strating point especially ones which have both one smaller and one bigger number in the4 set and the ones which have the one bigger in the set
+I had the insight that not every index can be a starting point especially ones which have both one smaller and one bigger number in the4 set and the ones which have the one bigger in the set
 I did not have the insight to check this condition of verifying through the set itself during the loop
 
 ## Key pattern
