@@ -1,42 +1,35 @@
 class Solution {
 public:
-    void bfs(int i, int j, vector<vector<bool>> & visited, vector<vector<char>>& grid)
+    void dfs(int i, int j, vector<vector<bool>> & visited, vector<vector<char>>& grid)
     {
-        deque<pair<int,int>> queue;
         int max_rows= grid.size();
         int max_columns = grid[0].size();
-        queue.push_back(make_pair(i,j));
-        while(queue.size())
-        {
-            pair<int,int> p = queue.front();
-            queue.pop_front();
-            
-            //top
-            if(p.first-1 >=0 && !visited[p.first-1][p.second] && grid[p.first-1][p.second] == '1')
+             //top
+            if(i-1 >=0 && !visited[i-1][j] && grid[i-1][j] == '1')
             
             {
-                visited[p.first-1][p.second] = true;
-                queue.push_back(make_pair(p.first-1, p.second));
+                visited[i-1][j] = true;
+                dfs(i-1, j, visited, grid);
             }
             //left
-            if(p.second-1 >=0 && !visited[p.first][p.second-1] && grid[p.first][p.second -1 ] == '1')
+            if(j-1 >=0 && !visited[i][j-1] && grid[i][j -1 ] == '1')
             {
-                 visited[p.first][p.second-1] = true;
-                queue.push_back(make_pair(p.first, p.second-1));
+                 visited[i][j-1] = true;
+                dfs(i, j-1, visited, grid);
             }
             //right
-            if(p.second+1 < max_columns && !visited[p.first][p.second+1] && grid[p.first][p.second+1] == '1')
+            if(j+1 < max_columns && !visited[i][j+1] && grid[i][j+1] == '1')
             {
-                visited[p.first][p.second+1] = true;
-                queue.push_back(make_pair(p.first, p.second+1));
+                visited[i][j+1] = true;
+                dfs(i, j+1, visited, grid);
             }
             //down
-            if(p.first+1 < max_rows && !visited[p.first+1][p.second] &&  grid[p.first+1][p.second] == '1')
+            if(i+1 < max_rows && !visited[i+1][j] &&  grid[i+1][j] == '1')
             {
-                visited[p.first+1][p.second] = true;
-                queue.push_back(make_pair(p.first+1, p.second));
+                visited[i+1][j] = true;
+                dfs(i+1, j, visited, grid);
             }
-        }
+        
     }
     int numIslands(vector<vector<char>>& grid) {
         vector<vector<bool>> visited;
@@ -57,7 +50,7 @@ public:
                 if(!visited[i][j] && grid[i][j] == '1')
                 {
                     num_comp++;
-                    bfs(i,j, visited, grid);
+                    dfs(i,j, visited, grid);
                 }
             }
         }
