@@ -1,50 +1,42 @@
 class Solution {
 public:
-    int is_ss(string &s, int start_index, int end_index, vector<vector<int>> &dp)
+    string expand(int i, int j, string s)
     {
-        //cout<<"i: "<<start_index<<" j: "<<end_index<<endl;
-        if( start_index >= end_index)
+        int max=0;
+        cout<<"Entry i:"<<i<<" j:"<<j<<endl;
+        while(i >= 0 && j < s.length() && s[i] == s[j])
         {
-            dp[start_index][end_index] = true;
-            return true;
-        
+            if(j-i + 1 > max)
+                max = j-i+1;
+            
+            //cout<<"Loop i:"<<i<<" j:"<<j<< " max:"<<max<<endl;
+            
+            i--;
+            j++;
         }
-        if( dp[start_index][end_index] == -1)
-        {
-            if(s[start_index] == s[end_index])
-                dp[start_index][end_index] = true && is_ss(s,start_index+1,end_index-1,dp);
-            else
-                dp[start_index][end_index] = false;
-        }
-        return dp[start_index][end_index];
+        return s.substr(i+1, max);
+
     }
     string longestPalindrome(string s) {
-        vector<vector<int>> dp;
+        
+        string evenAns = "", oddAns ="";
         for(int i=0;i<s.length();i++)
         {
-            vector<int> vec;
-            for(int j=0;j<s.length();j++)
-                vec.push_back(-1);
-            dp.push_back(vec);
+            string ans = expand(i,i,s);
+            if(ans.length() > evenAns.length())
+                evenAns = ans;
         }
-        int max = 0;
-        int start =-1;
-        for(int i=0;i< s.length();i++)
-        {
-            for(int j=i;j<s.length();j++)
-            {
-                //cout<<" Called "<<"i: "<<i<<" j:"<<j<<endl;
-                int answer = is_ss(s, i, j, dp);
-                //cout<<answer<<" "<<"i: "<<i<<" j:"<<j<<endl;
-                if(answer && j-i+1 > max)
-                {
-                    max = j - i+1;
-                    start = i;
-                }
-            }
-        }
-        return s.substr(start, max);
 
+        for(int i=1;i<s.length();i++)
+        {
+            string ans = expand(i-1,i,s);
+            if(ans.length() > oddAns.length())
+                oddAns = ans;
+        }
+        if (evenAns.length() >= oddAns.length())
+            return evenAns;
+        else
+            return oddAns;
     }
 
 };
