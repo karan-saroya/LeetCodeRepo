@@ -38,7 +38,7 @@ class Solution {
                             //System.out.println("In the first branch");
                             child.add(node.left);
                             child.add(node.right);  
-                            System.out.println(child);    
+                            //System.out.println(child);    
                         
                        
                 }
