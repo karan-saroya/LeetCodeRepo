@@ -1,45 +1,28 @@
 class Solution {
      public int lengthOfLongestSubstring(String s)
     {
-        int l=0,r=0;
-        HashSet<Character> hasSeen = new HashSet<Character>();
-        int ans = 0;
-        for(r =0;r< s.length();r++)
+        int l=0, r=0;
+        HashSet<Character> dupCheck = new HashSet<Character>();
+        int max =0;
+        for(l=0;l<s.length() && r< s.length();)
         {
-            if(!hasSeen.contains(s.charAt(r)))
+            if(dupCheck.contains(s.charAt(r)))
             {
-                hasSeen.add(s.charAt(r));
-                if(ans < r-l+1 )
+                while(l <r )
                 {
-                    ans = r-l+1;
-                }
-
-            }
-            else {
-                while ( l < r  && s.charAt(l) != s.charAt(r))
-                {
-                    hasSeen.remove(s.charAt(l));
+                    dupCheck.remove(s.charAt(l));
+                    char check = s.charAt(l);
                     l++;
+                    if(check == s.charAt(r))
+                        break;
                 }
-                if(s.charAt(l) == s.charAt(r) && l != r)
-                {
-                    l++;
-                    if(ans < r-l +1)
-                    {
-                        ans = r-l +1;
-                    }
-                }
-                else
-                {
-                    System.out.println("This should never happen");
-                }
-
             }
-
-
+            dupCheck.add(s.charAt(r));
+            r++;
+            if(r-l  > max)
+                max = r-l;
         }
-
-        return ans;
+        return max;
 
     }
 }
