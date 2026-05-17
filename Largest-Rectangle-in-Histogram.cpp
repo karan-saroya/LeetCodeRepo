@@ -15,47 +15,43 @@
 15            {
 16                pair<int, int> currEle  = minStack.top();
 17                
-18                if(heights[i] == (minStack.top()).first)
-19                    rightMin[currEle.second] = i;
-20                else
-21                    rightMin[currEle.second] = i-1;
-22                minStack.pop();
-23            }
-24
-25            minStack.push({heights[i],i});
-26        }
-27        // while(!minStack.empty())
-28        // {
-29        //     minStack.pop();
-30        // }
-31        stack<pair<int,int>> empty;
-32        swap(minStack, empty);
-33        for(int i=heights.size()-1;i>=0;i--)
-34        {
-35            while(!minStack.empty() &&(minStack.top()).first > heights[i])
-36            {
-37                
-38                    pair<int, int> currEle  = minStack.top();
-39                    
-40                    if(heights[i] == (minStack.top()).first)
-41                        leftMin[currEle.second] = i;
-42                    else
-43                        leftMin[currEle.second] = i+1;
-44
-45                    minStack.pop();
-46               
-47                
-48            }
-49
-50            minStack.push({heights[i],i});
-51        }
-52        int max = 0;
-53        for(int i=0;i<heights.size();i++)
-54        {
-55            //cout<<"heigh: "<<heights[i] << " LeftMin:"<<leftMin[i]<<" RightMin: "<<rightMin[i]<<endl;
-56            if(max < heights[i] * (rightMin[i] - leftMin[i] + 1))
-57                max = heights[i] * (rightMin[i] - leftMin[i] + 1);
-58        }
-59        return max;
-60    }
-61};
+18               
+19                    rightMin[currEle.second] = i-1;
+20                minStack.pop();
+21            }
+22
+23            minStack.push({heights[i],i});
+24        }
+25        // while(!minStack.empty())
+26        // {
+27        //     minStack.pop();
+28        // }
+29        stack<pair<int,int>> empty;
+30        swap(minStack, empty);
+31        for(int i=heights.size()-1;i>=0;i--)
+32        {
+33            while(!minStack.empty() &&(minStack.top()).first > heights[i])
+34            {
+35                
+36                    pair<int, int> currEle  = minStack.top();
+37                    
+38                
+39                        leftMin[currEle.second] = i+1;
+40
+41                    minStack.pop();
+42               
+43                
+44            }
+45
+46            minStack.push({heights[i],i});
+47        }
+48        int max = 0;
+49        for(int i=0;i<heights.size();i++)
+50        {
+51            //cout<<"heigh: "<<heights[i] << " LeftMin:"<<leftMin[i]<<" RightMin: "<<rightMin[i]<<endl;
+52            if(max < heights[i] * (rightMin[i] - leftMin[i] + 1))
+53                max = heights[i] * (rightMin[i] - leftMin[i] + 1);
+54        }
+55        return max;
+56    }
+57};
