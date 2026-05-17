@@ -24,12 +24,12 @@
 24
 25            minStack.push({heights[i],i});
 26        }
-27        while(!minStack.empty())
-28        {
-29            minStack.pop();
-30        }
-31        //stack<pair<int,int>> empty;
-32        //swap(minStack, empty);
+27        // while(!minStack.empty())
+28        // {
+29        //     minStack.pop();
+30        // }
+31        stack<pair<int,int>> empty;
+32        swap(minStack, empty);
 33        for(int i=heights.size()-1;i>=0;i--)
 34        {
 35            while(!minStack.empty() &&(minStack.top()).first > heights[i])
